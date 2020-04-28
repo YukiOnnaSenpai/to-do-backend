@@ -32,3 +32,4 @@ Route::group([
 });
 
 Route::post('auth/login', 'AuthController@login');
+Route::resource('todo', 'TodoController')->middleware('auth');

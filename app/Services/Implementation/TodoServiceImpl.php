@@ -14,29 +14,28 @@ class TodoServiceImpl implements TodoService{
         
     }
 
-    public function save($request) {
+    public function save($data) {
+        info($data);
 
-        info($request);
-
-          $todo = new Todo([
-            'title' => $request->get('title'),
-            'description'=> $request->get('description'),
-            'priority'=> $request->get('priority'),
-            'flag' => $request->get('flag'),
+        $todo = new Todo([
+            'title' => $data['title'],
+            'description'=> $data['description'],
+            'priority'=> $data['priority'],
+            'flag' => $data['flag'],
             'user_id' => auth()->user()->id
-          ]);
+        ]);
 
-          $todo->save();
+        $todo->save();
     }
 
-    public function update($request, $id) {
+    public function update($data,$id) {
         
-          $todo = Todo::find($id);
-          $todo->title = $request->get('title');
-          $todo->description = $request->get('description');
-          $todo->priority = $request->get('priority');
-          $todo->flag = $request->get('flag');
-          $todo->save();
+        $todo = Todo::find($id);
+        $todo->title = $data['title'];
+        $todo->description = $data['description'];
+        $todo->priority = $data['priority'];
+        $todo->flag = $data['flag'];
+        $todo->save();
           
     }
 

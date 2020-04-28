@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\TodoRequestValidation;
+use App\Http\Requests\TodoRequest;
 use App\Services\TodoService;
 use App\Todo;
 
@@ -24,7 +24,7 @@ class TodoController extends Controller
     public function index()
     {
         $todos = $this->service->index();
-        return redirect('/')->with('success', compact('todos'));
+        return response()->json(['todos' => $todos], 200);
     }
 
     /**
@@ -34,7 +34,7 @@ class TodoController extends Controller
      */
     public function create()
     {
-        return redirect('/')->with('success', 'Todo has been created');
+        return response()->json(['message' => 'Todo has been created'], 200);
     }
 
     /**
@@ -43,10 +43,10 @@ class TodoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(TodoRequestValidation $request)
+    public function store(TodoRequest $request)
     {   
-        $this->service->save($request);
-        return redirect('todo')->with('success', 'Todo has been added');
+        $this->service->save($request->all());
+        return response()->json(['message' => 'Todo has been added'], 200);
     }
 
     /**
@@ -69,8 +69,7 @@ class TodoController extends Controller
     public function edit($id)
     {
         $todo = Todo::find($id);
-
-        return redirect('/')->with('success', compact('todo'));
+        return response()->json(['todo' => $todo], 200);
     }
 
     /**
@@ -80,10 +79,10 @@ class TodoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(TodoRequestValidation $request, $id)
+    public function update(TodoRequest $request, $id)
     {
-        $this->service->update($request,$id);
-        return redirect('/')->with('success', 'Todo has been updated');
+        $this->service->update($request->all(),$id);
+        return response()->json(['message' => 'Todo has been updated'], 200);
     }
 
     /**
@@ -95,6 +94,6 @@ class TodoController extends Controller
     public function destroy($id)
     {
         $this->service->delete($id);
-        return redirect('/')->with('success', 'Todo has been deleted Successfully');
+        return response()->json(['message' => 'Todo has been deleted successfully'], 200);
     }
 }
