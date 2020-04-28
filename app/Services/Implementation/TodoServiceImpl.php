@@ -15,14 +15,14 @@ class TodoServiceImpl implements TodoService{
     }
 
     public function save($data) {
-        info('POST in the service', $data);
+        $currentUser = auth()->user()->id;
 
         $todo = new Todo([
             'title' => $data['title'],
             'description'=> $data['description'],
             'priority'=> $data['priority'],
             'flag' => $data['flag'],
-            'user_id' => auth()->user()->id
+            'user_id' => $currentUser,
         ]);
 
         $todo->save();
@@ -31,6 +31,7 @@ class TodoServiceImpl implements TodoService{
     public function update($data,$id) {
         
         $todo = Todo::find($id);
+
         $todo->title = $data['title'];
         $todo->description = $data['description'];
         $todo->priority = $data['priority'];
@@ -40,6 +41,7 @@ class TodoServiceImpl implements TodoService{
     }
 
     public function delete($id) {
+
         $todo = Todo::find($id);
         $todo->delete();
     }

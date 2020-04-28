@@ -26,23 +26,8 @@ class TodoRequest extends FormRequest
         return [
             'title'=>'required',
             'description'=> 'required',
-            'priority' => 'required|in:[high,low,medium]',
+            'priority' => 'required|in:high,low,medium',
             'flag' => 'required|boolean'
-        ];
-    }
-
-     /**
-     * Custom message for validation
-     *
-     * @return array
-     */
-    public function messages()
-    {
-        return [
-            'title.required' => 'Title is required!',
-            'description.required' => 'Description is required!',
-            'priority.required' => 'Priority is required and must be: high, medium or low!',
-            'flag.required' => 'Flag name is required!',
         ];
     }
 }

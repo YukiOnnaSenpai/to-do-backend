@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TodoRequest;
 use App\Services\TodoService;
-use App\Todo;
 
 class TodoController extends Controller
 {
@@ -35,7 +34,6 @@ class TodoController extends Controller
      */
     public function store(TodoRequest $request)
     {
-        info('POST now in the controller');
         $this->service->save($request->all());
         return response()->json(['message' => 'Todo has been added'], 200);
     }
