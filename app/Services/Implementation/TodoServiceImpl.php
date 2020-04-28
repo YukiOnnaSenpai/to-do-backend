@@ -15,6 +15,7 @@ class TodoServiceImpl implements TodoService{
     }
 
     public function save($data) {
+        info('POST in the service', $data);
 
         $todo = new Todo([
             'title' => $data['title'],

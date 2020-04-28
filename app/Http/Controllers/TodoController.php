@@ -24,17 +24,7 @@ class TodoController extends Controller
     public function index()
     {
         $todos = $this->service->index();
-        return response()->json(['todos' => $todos], 200);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return response()->json(['message' => 'Todo has been created'], 200);
+        return $todos;
     }
 
     /**
@@ -44,7 +34,8 @@ class TodoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(TodoRequest $request)
-    {   
+    {
+        info('POST now in the controller');
         $this->service->save($request->all());
         return response()->json(['message' => 'Todo has been added'], 200);
     }
@@ -58,18 +49,6 @@ class TodoController extends Controller
     public function show($id)
     {
         //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $todo = Todo::find($id);
-        return response()->json(['todo' => $todo], 200);
     }
 
     /**
