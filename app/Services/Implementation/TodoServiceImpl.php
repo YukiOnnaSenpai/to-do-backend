@@ -17,7 +17,7 @@ class TodoServiceImpl implements TodoService{
     public function save($data) {
         $currentUser = auth()->user()->id;
 
-        $todo = new Todo([
+        $todo = Todo::create([
             'title' => $data['title'],
             'description'=> $data['description'],
             'priority'=> $data['priority'],
